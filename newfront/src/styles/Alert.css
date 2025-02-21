@@ -1,0 +1,20 @@
+.alert-container {
+    border: 1px solid orange;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #fff3cd; /* Light orange background */
+}
+
+.alert-container h2 {
+    margin: 0 0 10px 0;
+}
+
+.alert-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.alert-container li {
+    margin: 5px 0;
+}

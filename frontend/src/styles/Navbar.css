@@ -1,0 +1,117 @@
+/* src/styles/Navbar.css */
+.navbar {
+    background-color: #212529; /* Darker navbar color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #ffffff; /* White text for navbar brand */
+}
+
+.profile-icon {
+    margin-left: auto; /* Aligns profile icon to the right */
+}
+
+.sidebar {
+    position: fixed;
+    left: 0; /* Aligns the sidebar to the left */
+    top: 56px; /* Adjust according to navbar height */
+    width: 200px; /* Set the width of the sidebar */
+    height: calc(100% - 56px); /* Full height minus navbar height */
+    background-color: #343a40; /* Dark background for sidebar */
+    z-index: 1000;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    padding: 0; /* Remove padding from li */
+}
+
+.sidebar-menu li a {
+    color: #ffffff; /* White text */
+    text-decoration: none;
+    display: block; /* Make the whole area clickable */
+    padding: 15px; /* Add padding for better touch targets */
+    transition: background-color 0.3s; /* Transition effects */
+    width: 100%; /* Full width */
+}
+
+
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%; /* Full width on smaller screens */
+        height: auto; /* Adjust height */
+        position: relative; /* Change position */
+    }
+}
+/* Style pour le dropdown */
+.navbar .dropdown-menu {
+    background-color: #343a40; /* Couleur de fond du dropdown */
+    border: none;
+}
+
+.navbar .dropdown-item {
+    color: #fff; /* Couleur du texte */
+}
+
+
+/* Sidebar styling */
+
+
+/* Sidebar menu items */
+.sidebar-menu li {
+    list-style: none;
+}
+
+.sidebar-menu li a,
+#sidebar-dropdown-button {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: white;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 16px;
+}
+
+/* Hover & Active Styles */
+.sidebar-menu li a:hover,
+#sidebar-dropdown-button:hover,
+.sidebar-menu .active {
+    background-color: #7e848b;
+    color: white;
+}
+
+/* Remove Bootstrap green color from the dropdown button */
+#sidebar-dropdown-button {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Dropdown menu styling */
+.sidebar-dropdown .dropdown-menu {
+    width: 100%;
+    background-color: #34495e;
+    border: none;
+}
+
+.sidebar-dropdown .dropdown-menu .dropdown-item {
+    color: white;
+    padding: 10px 20px;
+}
+
+.sidebar-dropdown .dropdown-menu .dropdown-item:hover {
+    background-color: #007bff;
+}

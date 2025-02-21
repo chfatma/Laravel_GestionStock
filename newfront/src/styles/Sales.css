@@ -1,0 +1,154 @@
+.sales-container {
+    padding: 20px;
+}
+
+.sales-header {
+    margin-left: 350px;
+    display: flex;
+    flex-direction: column; /* Stack title and button vertically */
+    align-items: flex-start; /* Align items to the left */
+    margin-bottom: 20px;
+}
+
+.sales-header h2 {
+    font-size: 24px;
+    margin: 0; /* Remove default margin for better alignment */
+}
+
+.add-sale-btn {
+    margin-left: 1250px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px; /* Space between title and button */
+}
+
+/* New class to fix the button position */
+.add-sale-btn-fixed {
+    position: relative; /* Change to relative if you want to fix it without moving it */
+    left: 0; /* Align button to the left */
+}
+
+.add-sale-btn:hover {
+    background-color: #218838;
+}
+
+/* Adjusted sales-list for side-by-side display */
+.sales-list {
+    margin-left: 350px;
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping to next line if necessary */
+    justify-content: center; /* Center cards */
+    gap: 20px; /* Space between cards */
+}
+
+.sale-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.sale-card h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.sale-card p {
+    margin: 5px 0;
+}
+
+.edit-btn, .delete-btn {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background: #007bff;
+    color: white;
+    margin-right: 5px;
+}
+
+.delete-btn {
+    background: #dc3545;
+    color: white;
+}
+
+
+
+
+
+
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Deeper shadow */
+    width: 400px; /* Fixed width for the modal */
+    max-width: 90%; /* Responsive max width */
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold; /* Bold labels */
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="number"],
+.modal-content input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px; /* Rounded input fields */
+    transition: border-color 0.3s;
+}
+
+.modal-content input[type="text"]:focus,
+.modal-content input[type="number"]:focus,
+.modal-content input[type="date"]:focus {
+    border-color: #007bff; /* Highlight border on focus */
+}
+
+.modal-content button {
+    background-color: #007bff; /* Button color */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px; /* Space between buttons */
+    transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+    background-color: #0056b3; /* Darker button on hover */
+}

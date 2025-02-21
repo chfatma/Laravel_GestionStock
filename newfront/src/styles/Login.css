@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e7eff6, #d0e6f5);
+  padding: 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px; /* Adjusted width for the card */
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: flex;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #003366; /* Dark Blue */
+}
+
+.input-box {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.input-box input:focus {
+  border-color: #003366; /* Dark Blue on focus */
+}
+
+.button {
+  width: 100%;
+}
+
+.button input {
+  width: 100%;
+  padding: 15px;
+  background: #007acc; /* Bright Blue */
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.button input:hover {
+  background: #005999; /* Darker Blue on hover */
+}
+
+.toggle-text {
+  margin-top: 15px;
+  color: #666;
+  text-align: center;
+}
+
+.toggle-text span {
+  color: #007acc; /* Bright Blue for toggle text */
+  cursor: pointer;
+  text-decoration: underline;
+}

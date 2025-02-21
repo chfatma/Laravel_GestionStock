@@ -1,0 +1,90 @@
+/* Navbar styles */
+.navbar {
+    background-color: #343a40; /* Darker navbar color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 55px; 
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.8rem;
+    color: #ffffff; /* White text for navbar brand */
+}
+
+.navbar .nav-link {
+    color: #ffffff;
+    transition: color 0.3s;
+}
+
+.navbar .nav-link:hover {
+    color: #007bff; /* Change color on hover */
+}
+
+/* Sidebar styles */
+.sidebar {
+    position: fixed;
+    left: 0; /* Aligns the sidebar to the left */
+    top: 55px; /* Adjust according to navbar height */
+    width: 200px; /* Set the width of the sidebar */
+    height: calc(100% - 55px); /* Full height minus navbar height */
+    background-color: #212529; /* Dark background for sidebar */
+    z-index: 1000;
+    /* Remove padding-top to eliminate white space */
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    width: 100%; /* Ensure the list items take full width */
+}
+
+.sidebar-menu li a {
+    color: #ffffff; /* White text */
+    text-decoration: none; /* Remove underline */
+    display: block; /* Make the entire area clickable */
+    padding: 15px 20px; /* Add padding for better touch targets */
+    border-radius: 4px; /* Rounded corners */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+}
+
+/* Hover & Active Styles */
+.sidebar-menu li a:hover,
+.sidebar-menu .active {
+    background-color: #007bff; /* Change background on hover */
+    color: white; /* Keep text white on hover */
+}
+
+/* Adding a box shadow for visual depth */
+.sidebar-menu li a {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.sidebar-menu li a:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Darker shadow on hover */
+}
+
+/* Main content area */
+.main-content {
+    margin-left: -115px; /* Same width as the sidebar */
+    margin-top: 0; /* Remove top margin */
+ 
+    min-height: calc(100vh - 55px); /* Full height minus navbar height */
+    background-color: #f8f9fa; /* Light background for the content area */
+    overflow-y: auto; /* Enable scrolling if content overflows */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%; /* Full width on smaller screens */
+        height: auto; /* Adjust height */
+        position: relative; /* Change position */
+    }
+    .main-content {
+        margin-left: 0; /* Remove sidebar margin on smaller screens */
+    }
+}
