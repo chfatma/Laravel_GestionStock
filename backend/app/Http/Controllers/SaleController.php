@@ -55,7 +55,7 @@ class SaleController extends Controller
         return response()->json($sale);
     }
 
-    // Mettre à jour une vente
+   
 // Mettre à jour une vente
 public function update(Request $request, $id)
 {

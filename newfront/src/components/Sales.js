@@ -115,10 +115,10 @@ const Sales = () => {
     };
 
     return (
-        <div className="sales-container">
+        <div className="sales-container" style={{ textAlign: 'left' }}>
             {/* Title and Button Row */}
             <div className="sales-header">
-                <h2>Sales</h2>
+                <h1 className="sales-title" >Sales</h1>
                 <button className="add-sale-btn" onClick={() => setShowAddSaleModal(true)}>Add Sale</button>
             </div>
 

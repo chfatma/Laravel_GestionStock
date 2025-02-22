@@ -48,17 +48,15 @@ const Login = ({ setIsAuthenticated }) => {
         handleLogin(e); // Auto login after signup
       }
     } catch (err) {
-      console.error(err.response?.data); // Log error
+      console.error(err.response?.data); 
       setError(err.response?.data?.message || "Signup failed. Please try again.");
     }
   };
-  
 
   return (
     <div className="body">
       <div className="login-card">
         <div className="form-container">
-          {error && <p className="error">{error}</p>} {/* Display error messages */}
           <form
             className={`login-form ${isLogin ? "visible" : "hidden"}`}
             onSubmit={handleLogin}
@@ -72,6 +70,7 @@ const Login = ({ setIsAuthenticated }) => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+              {error && <p className="error">{error}</p>} {/* Show error under input */}
             </div>
             <div className="input-box">
               <input
@@ -81,6 +80,7 @@ const Login = ({ setIsAuthenticated }) => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              {error && <p className="error">{error}</p>} {/* Show error under input */}
             </div>
             <div className="button">
               <input type="submit" value="Login" />
@@ -102,6 +102,7 @@ const Login = ({ setIsAuthenticated }) => {
                 onChange={(e) => setFirstName(e.target.value)}
                 required
               />
+              {error && <p className="error">{error}</p>} {/* Show error under input */}
             </div>
             <div className="input-box">
               <input
@@ -111,6 +112,7 @@ const Login = ({ setIsAuthenticated }) => {
                 onChange={(e) => setLastName(e.target.value)}
                 required
               />
+              {error && <p className="error">{error}</p>} {/* Show error under input */}
             </div>
             <div className="input-box">
               <input
@@ -120,6 +122,7 @@ const Login = ({ setIsAuthenticated }) => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+              {error && <p className="error">{error}</p>} {/* Show error under input */}
             </div>
             <div className="input-box">
               <input
@@ -129,6 +132,7 @@ const Login = ({ setIsAuthenticated }) => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              {error && <p className="error">{error}</p>} {/* Show error under input */}
             </div>
             <div className="button">
               <input type="submit" value="Sign Up" />

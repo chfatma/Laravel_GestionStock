@@ -99,3 +99,8 @@ h2 {
   cursor: pointer;
   text-decoration: underline;
 }
+.error {
+  color: red; /* Change this to your desired error color */
+  font-size: 14px; /* Adjust size as necessary */
+  margin-top: 5px; /* Space above the error message */
+}

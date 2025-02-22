@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
+import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
+import '../styles/StockEntryList.css'
+
 
 const StockEntryList = () => {
   const [stockEntries, setStockEntries] = useState([]);
@@ -112,11 +115,13 @@ const StockEntryList = () => {
 
   return (
     <div className="container mt-5">
-      <h1>Stock Entries</h1>
-      <Button variant="primary" onClick={() => setShowAddEntryModal(true)}>
-        Add Stock Entry
-      </Button>
-
+    <h1 className="stock-entries-title">Stock Entries</h1>
+    <div className="button-container">
+    
+      <button className="btn btn-primary"   onClick={() => setShowAddEntryModal(true)}>
+                         Add Entries
+                      </button>
+    </div>
       {/* Add Stock Entry Modal */}
       {showAddEntryModal && (
         <div className="modal">

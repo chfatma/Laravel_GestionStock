@@ -41,7 +41,7 @@
     margin-left: 350px;
     display: flex;
     flex-wrap: wrap; /* Allows wrapping to next line if necessary */
-    justify-content: center; /* Center cards */
+    justify-content: left; /* Center cards */
     gap: 20px; /* Space between cards */
 }
 
@@ -151,4 +151,14 @@
 
 .modal-content button:hover {
     background-color: #0056b3; /* Darker button on hover */
+}
+
+
+.sales-title {
+    margin-top: 50px;
+    font-size: 2.2rem; /* Adjust the font size */
+    color: #333; /* Change text color */
+    margin-bottom: 20px; /* Space below the title */
+    text-align: left; /* Center the title */
+    font-weight: bold; /* Make the title bold */
 }

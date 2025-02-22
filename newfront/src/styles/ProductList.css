@@ -1,9 +1,21 @@
 .product-table {
-    width: 100%;
+    width: 120%;
     border-collapse: collapse;
     margin-top: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
+    margin-left: 50px;
 }
+
+.container {
+    
+    width: 100%;
+    max-width: 1200px; /* Optional: limit the max width */
+    margin: 0 auto; /* Center the container */
+    padding: 20px; /* Add some padding for better appearance */
+    
+}
+
 
 .product-table th,
 .product-table td {
@@ -50,4 +62,41 @@
 .product-table .btn-danger:hover {
     background-color: #c82333;
     border-color: #bd2130;
+}
+
+.update-button {
+    margin-top: 20px; /* Adjust the value as needed */
+    padding: 10px 20px; /* Optional: you can add padding for better appearance */
+    background-color: #007bff; /* Optional: background color */
+    color: white; /* Optional: text color */
+    border: none; /* Optional: remove border */
+    border-radius: 4px; /* Optional: rounded corners */
+    font-size: 16px; /* Optional: font size */
+    cursor: pointer; /* Optional: pointer on hover */
+    
+    transition: background-color 0.3s ease; /* Optional: transition effect */
+}
+
+.update-button:hover {
+    background-color: #0056b3; /* Optional: change color on hover */
+}
+.fixed-width-container {
+    margin-left: 1300px;
+    
+    width: 800px; /* Set your desired fixed width */
+    margin: 0 auto; /* Center the container */
+}
+
+.fixed-width-container h1 {
+    margin-bottom: 20px;
+    margin-left: 1300px;
+    /* Add space below the header */
+}
+
+.fixed-width-container .button-container {
+    display: flex;
+    margin-left: 1300px;
+    
+    justify-content: flex-end; /* Align the button to the right */
+    margin-bottom: 20px; /* Add space below the button */
 }

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../api'; // Assurez-vous que votre fichier api.js est correctement configuré
-import './../styles/AddProduct.css'; // Import des styles CSS
+import api from '../api'; 
+import './../styles/AddProduct.css'; 
 
 const AddProduct = () => {
     const navigate = useNavigate();
 
-    // État pour stocker les données du formulaire
+    // State to store form data
     const [formData, setFormData] = useState({
         name: '',
         category: '',
@@ -15,10 +15,10 @@ const AddProduct = () => {
         stock_alert: '',
     });
 
-    // État pour gérer les erreurs de validation
+    // State to handle validation errors
     const [errors, setErrors] = useState({});
 
-    // Fonction pour gérer les changements dans les champs du formulaire
+    // Function to handle changes in form fields
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -27,47 +27,47 @@ const AddProduct = () => {
         });
     };
 
-    // Fonction pour valider le formulaire
+    // Function to validate the form
     const validateForm = () => {
         const newErrors = {};
 
-        if (!formData.name) newErrors.name = 'Le nom est requis';
-        if (!formData.category) newErrors.category = 'La catégorie est requise';
-        if (!formData.quantity || isNaN(formData.quantity)) newErrors.quantity = 'La quantité doit être un nombre valide';
-        if (!formData.price || isNaN(formData.price)) newErrors.price = 'Le prix doit être un nombre valide';
-        if (!formData.stock_alert || isNaN(formData.stock_alert)) newErrors.stock_alert = 'L\'alerte de stock doit être un nombre valide';
+        if (!formData.name) newErrors.name = 'Product name is required';
+        if (!formData.category) newErrors.category = 'Category is required';
+        if (!formData.quantity || isNaN(formData.quantity)) newErrors.quantity = 'Quantity must be a valid number';
+        if (!formData.price || isNaN(formData.price)) newErrors.price = 'Price must be a valid number';
+        if (!formData.stock_alert || isNaN(formData.stock_alert)) newErrors.stock_alert = 'Stock alert must be a valid number';
 
         setErrors(newErrors);
-        return Object.keys(newErrors).length === 0; // Retourne true si aucune erreur
+        return Object.keys(newErrors).length === 0; // Returns true if no errors
     };
 
-    // Fonction pour soumettre le formulaire
+    // Function to submit the form
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (validateForm()) {
             try {
-                const response = await api.post('/products', formData); // Envoyer les données à l'API
-                alert('Produit ajouté avec succès !');
-                navigate('/products'); // Rediriger vers la liste des produits
+                const response = await api.post('/products', formData); // Send data to the API
+                alert('Product added successfully!');
+                navigate('/products'); // Redirect to the products list
             } catch (error) {
-                console.error('Erreur lors de l\'ajout du produit:', error);
-                alert('Une erreur est survenue lors de l\'ajout du produit.');
+                console.error('Error adding product:', error);
+                alert('An error occurred while adding the product.');
             }
         }
     };
 
     return (
         <div className="add-product-page">
-            {/* Titre en dehors de la carte */}
-            <h1 className="add-product-title">Ajouter un produit</h1>
+        
+            <h1 className="add-product-title">Add a Product</h1>
 
-            {/* Carte contenant le formulaire */}
+       
             <div className="add-product-container">
                 <form onSubmit={handleSubmit} className="add-product-form">
-                    {/* Champ Nom */}
+                 
                     <div className="form-group">
-                        <label htmlFor="name" className="form-label">Nom du produit</label>
+                        <label htmlFor="name" className="form-label">Product Name</label>
                         <input
                             type="text"
                             className={`form-input ${errors.name ? 'input-error' : ''}`}
@@ -79,9 +79,8 @@ const AddProduct = () => {
                         {errors.name && <span className="error-message">{errors.name}</span>}
                     </div>
 
-                    {/* Champ Catégorie */}
                     <div className="form-group">
-                        <label htmlFor="category" className="form-label">Catégorie</label>
+                        <label htmlFor="category" className="form-label">Category</label>
                         <input
                             type="text"
                             className={`form-input ${errors.category ? 'input-error' : ''}`}
@@ -93,9 +92,8 @@ const AddProduct = () => {
                         {errors.category && <span className="error-message">{errors.category}</span>}
                     </div>
 
-                    {/* Champ Quantité */}
                     <div className="form-group">
-                        <label htmlFor="quantity" className="form-label">Quantité</label>
+                        <label htmlFor="quantity" className="form-label">Quantity</label>
                         <input
                             type="number"
                             className={`form-input ${errors.quantity ? 'input-error' : ''}`}
@@ -107,9 +105,9 @@ const AddProduct = () => {
                         {errors.quantity && <span className="error-message">{errors.quantity}</span>}
                     </div>
 
-                    {/* Champ Prix */}
+                  
                     <div className="form-group">
-                        <label htmlFor="price" className="form-label">Prix</label>
+                        <label htmlFor="price" className="form-label">Price</label>
                         <input
                             type="number"
                             step="0.01"
@@ -122,9 +120,8 @@ const AddProduct = () => {
                         {errors.price && <span className="error-message">{errors.price}</span>}
                     </div>
 
-                    {/* Champ Alerte de stock */}
                     <div className="form-group">
-                        <label htmlFor="stock_alert" className="form-label">Alerte de stock</label>
+                        <label htmlFor="stock_alert" className="form-label">Stock Alert</label>
                         <input
                             type="number"
                             className={`form-input ${errors.stock_alert ? 'input-error' : ''}`}
@@ -136,8 +133,8 @@ const AddProduct = () => {
                         {errors.stock_alert && <span className="error-message">{errors.stock_alert}</span>}
                     </div>
 
-                    {/* Bouton de soumission */}
-                    <button type="submit" className="submit-button">Ajouter le produit</button>
+             
+                    <button type="submit" className="submit-button">Add Product</button>
                 </form>
             </div>
         </div>

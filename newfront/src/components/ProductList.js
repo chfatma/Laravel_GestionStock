@@ -100,12 +100,14 @@ const ProductList = () => {
     return (
         <div className="container mt-5">
             <h1>Product List</h1>
-            <div className="d-flex justify-content-end mb-4">
+            <div className="d-flex justify-content-end mb-4"  style={{ width: '120%' }}>
                 <button className="btn btn-primary" onClick={handleAddProduct}>
-                    <FaPlus /> Add Product
+                  Add Product
                 </button>
             </div>
+            <div style={{ width: '120%', marginLeft:'50px' }}>
             <Alert products={products} />
+        </div>
             <table className="product-table">
                 <thead>
                     <tr>
@@ -211,7 +213,9 @@ const ProductList = () => {
                 required
             />
         </div>
-        <button type="submit">Update Product</button>
+
+      <button className="update-button" type="submit">Update Product</button>
+
     </form>
 </Modal>
 

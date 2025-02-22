@@ -1,0 +1,13 @@
+.button-container {
+    text-align: right; /* Aligns the button to the right */
+  margin-bottom: 20px; /* Adds some space below the button */
+margin-left: 1300px;  
+}
+  
+.stock-entries-title {
+    font-size: 2.2rem; /* Adjust the font size */
+    color: #333; /* Change text color */
+    margin-bottom: 20px; /* Space below the title */
+    text-align: left; /* Center the title */
+    font-weight: bold; /* Make the title bold */
+}

@@ -88,3 +88,38 @@
         margin-left: 0; /* Remove sidebar margin on smaller screens */
     }
 }
+
+
+/* Profile Icon Container */
+.profile-icon-container {
+    position: relative;
+    cursor: pointer;
+}
+
+/* Profile Dropdown */
+.profile-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #343a40;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    min-width: 150px;
+}
+
+.profile-dropdown .dropdown-item {
+    color: #ffffff;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.profile-dropdown .dropdown-item:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+
+

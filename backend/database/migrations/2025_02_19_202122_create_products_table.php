@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->integer('quantity'); // Product quantity
             $table->decimal('price', 8, 2); // Product price (8 digits total, 2 decimal places)
             $table->integer('stock_alert'); // Stock alert threshold
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->timestamps(); // Created at and updated at timestamps
         });
     }
