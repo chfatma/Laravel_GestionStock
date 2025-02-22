@@ -32,7 +32,14 @@ const Layout = () => {
                 Produits
             </NavLink>
         </li>
-        <li><Link to="/sales">Sales</Link></li> {/* Add Sales Link */}
+        <li><Link to="/sales">Sales</Link></li>
+        
+        <li>
+                        <NavLink to="/stock-entries" className={({ isActive }) => (isActive ? 'active' : '')}>
+                            Stock Entries
+                        </NavLink>
+                    </li>
+         {/* Add Sales Link */}
     </ul>
 </div>
 

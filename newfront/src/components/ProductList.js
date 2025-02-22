@@ -1,117 +1,119 @@
 import React, { useEffect, useState } from 'react';
-import api from '../api';
+import api from '../api'; // Adjust the import according to your API configuration
 import { useNavigate } from 'react-router-dom';
-import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa'; // Import des icônes
-import { Modal, Button, Form } from 'react-bootstrap'; // Import des composants Bootstrap
-import './../styles/ProductList.css'; // Import des styles CSS
-import Alert from '../components/Alert'; // Adjust the path if necessary
-
-
-
-
+import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
+import './../styles/ProductList.css'; // Adjust the import according to your styles
+import Alert from '../components/Alert';
+import Modal from '../components/Modal'; // Import the Modal component
 
 const ProductList = () => {
-    const [products, setProducts] = useState([]); // État pour stocker les produits
-    const [loading, setLoading] = useState(true); // État pour gérer le chargement
-    const [showEditModal, setShowEditModal] = useState(false); // État pour gérer l'affichage du modal
-    const [selectedProduct, setSelectedProduct] = useState(null); // État pour stocker le produit sélectionné
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [formData, setFormData] = useState({
+        name: '',
+        category: '',
+        quantity: '',
+        price: '',
+        stock_alert: '',
+    });
     const navigate = useNavigate();
 
-    // Fonction pour récupérer les produits
+    // Fetch all products
     const fetchProducts = async () => {
         try {
-            const response = await api.get('/products'); // Requête GET vers /api/products
-            setProducts(response.data); // Mettre à jour l'état avec les produits reçus
+            const response = await api.get('/products');
+            setProducts(response.data);
         } catch (error) {
-            console.error('Erreur lors de la récupération des produits:', error);
+            console.error('Error fetching products:', error);
         } finally {
-            setLoading(false); // Arrêter le chargement
+            setLoading(false);
         }
     };
 
-    // Fonction pour supprimer un produit
+    // Handle product deletion
     const handleDelete = async (id) => {
-        if (window.confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
+        if (window.confirm('Are you sure you want to delete this product?')) {
             try {
-                await api.delete(`/products/${id}`); // Requête DELETE vers /api/products/{id}
-                alert('Produit supprimé avec succès !');
-                fetchProducts(); // Recharger la liste des produits après suppression
+                await api.delete(`/products/${id}`);
+                alert('Product deleted successfully!');
+                fetchProducts();
             } catch (error) {
-                console.error('Erreur lors de la suppression du produit:', error);
+                console.error('Error deleting product:', error);
             }
         }
     };
 
-    // Fonction pour ouvrir le modal d'édition
+    // Handle opening the edit modal
     const handleEdit = (product) => {
-        setSelectedProduct(product); // Définir le produit sélectionné
-        setShowEditModal(true); // Afficher le modal
+        setSelectedProduct(product);
+        setFormData({
+            name: product.name,
+            category: product.category,
+            quantity: product.quantity,
+            price: product.price,
+            stock_alert: product.stock_alert,
+        });
+        setIsModalOpen(true);
     };
 
-    // Fonction pour fermer le modal d'édition
-    const handleCloseEditModal = () => {
-        setShowEditModal(false); // Masquer le modal
-        setSelectedProduct(null); // Réinitialiser le produit sélectionné
-    };
-
-    // Fonction pour sauvegarder les modifications
-    const handleSaveChanges = async () => {
-        try {
-            await api.put(`/products/${selectedProduct.id}`, selectedProduct); // Requête PUT pour mettre à jour le produit
-            alert('Produit mis à jour avec succès !');
-            fetchProducts(); // Recharger la liste des produits après modification
-            handleCloseEditModal(); // Fermer le modal
-        } catch (error) {
-            console.error('Erreur lors de la mise à jour du produit:', error);
-        }
-    };
-
-    // Fonction pour naviguer vers la page d'ajout de produit
+    // Handle navigating to add product page
     const handleAddProduct = () => {
-        navigate('/products/add'); // Navigate to the add product page
+        navigate('/products/add');
     };
 
-    // Fonction pour déterminer la couleur du cercle en fonction de l'alerte de stock
+    // Get stock alert color
     const getStockAlertColor = (stockAlert) => {
-        if (stockAlert <= 5) {
-            return 'red'; // Rouge si l'alerte est <= 5
-        } else if (stockAlert > 5 && stockAlert <= 50) {
-            return 'orange'; // Orange si l'alerte est entre 6 et 50
-        } else {
-            return 'green'; // Vert si l'alerte est > 50
+        if (stockAlert <= 5) return 'red';
+        if (stockAlert > 5 && stockAlert <= 50) return 'orange';
+        return 'green';
+    };
+
+    // Handle input changes in the edit form
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    // Handle updating a product
+    const handleUpdateProduct = async (e) => {
+        e.preventDefault();
+        try {
+            await api.put(`/products/${selectedProduct.id}`, formData);
+            alert('Product updated successfully!');
+            fetchProducts();
+            setIsModalOpen(false); // Close modal after updating
+        } catch (error) {
+            console.error('Error updating product:', error);
         }
     };
 
-    // Utiliser useEffect pour appeler fetchProducts au chargement du composant
     useEffect(() => {
         fetchProducts();
     }, []);
 
-    // Afficher un message de chargement si les données ne sont pas encore disponibles
     if (loading) {
-        return <div>Chargement en cours...</div>;
+        return <div>Loading...</div>;
     }
 
     return (
         <div className="container mt-5">
-            <h1>Liste des produits</h1>
+            <h1>Product List</h1>
             <div className="d-flex justify-content-end mb-4">
-                <button
-                    className="btn btn-primary"
-                    onClick={handleAddProduct}
-                >
-                    <FaPlus /> Ajouter un produit
+                <button className="btn btn-primary" onClick={handleAddProduct}>
+                    <FaPlus /> Add Product
                 </button>
             </div>
             <Alert products={products} />
             <table className="product-table">
                 <thead>
                     <tr>
-                        <th>Nom</th>
-                        <th>Catégorie</th>
-                        <th>Quantité</th>
-                        <th>Prix</th>
-                        <th>Alerte stock</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Stock Alert</th>
                         <th className="actions">Actions</th>
                     </tr>
                 </thead>
@@ -145,7 +147,7 @@ const ProductList = () => {
                                     className="btn btn-danger btn-sm"
                                     onClick={() => handleDelete(product.id)}
                                 >
-                                    <FaTrash /> {/* Icône de suppression */}
+                                    <FaTrash />
                                 </button>
                             </td>
                         </tr>
@@ -153,91 +155,66 @@ const ProductList = () => {
                 </tbody>
             </table>
 
-            {/* Modal pour l'édition du produit */}
-            <Modal show={showEditModal} onHide={handleCloseEditModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Modifier le produit</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {selectedProduct && (
-                        <Form>
-                            <Form.Group controlId="formName">
-                                <Form.Label>Nom</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    value={selectedProduct.name}
-                                    onChange={(e) =>
-                                        setSelectedProduct({
-                                            ...selectedProduct,
-                                            name: e.target.value,
-                                        })
-                                    }
-                                />
-                            </Form.Group>
-                            <Form.Group controlId="formCategory">
-                                <Form.Label>Catégorie</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    value={selectedProduct.category}
-                                    onChange={(e) =>
-                                        setSelectedProduct({
-                                            ...selectedProduct,
-                                            category: e.target.value,
-                                        })
-                                    }
-                                />
-                            </Form.Group>
-                            <Form.Group controlId="formQuantity">
-                                <Form.Label>Quantité</Form.Label>
-                                <Form.Control
-                                    type="number"
-                                    value={selectedProduct.quantity}
-                                    onChange={(e) =>
-                                        setSelectedProduct({
-                                            ...selectedProduct,
-                                            quantity: e.target.value,
-                                        })
-                                    }
-                                />
-                            </Form.Group>
-                            <Form.Group controlId="formPrice">
-                                <Form.Label>Prix</Form.Label>
-                                <Form.Control
-                                    type="number"
-                                    value={selectedProduct.price}
-                                    onChange={(e) =>
-                                        setSelectedProduct({
-                                            ...selectedProduct,
-                                            price: e.target.value,
-                                        })
-                                    }
-                                />
-                            </Form.Group>
-                            <Form.Group controlId="formStockAlert">
-                                <Form.Label>Alerte stock</Form.Label>
-                                <Form.Control
-                                    type="number"
-                                    value={selectedProduct.stock_alert}
-                                    onChange={(e) =>
-                                        setSelectedProduct({
-                                            ...selectedProduct,
-                                            stock_alert: e.target.value,
-                                        })
-                                    }
-                                />
-                            </Form.Group>
-                        </Form>
-                    )}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseEditModal}>
-                        Fermer
-                    </Button>
-                    <Button variant="primary" onClick={handleSaveChanges}>
-                        Sauvegarder
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <Modal
+    isOpen={isModalOpen}
+    onClose={() => setIsModalOpen(false)}
+    title="Edit Product"
+>
+    <form onSubmit={handleUpdateProduct}>
+        <div>
+            <label>Name:</label>
+            <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                required
+            />
+        </div>
+        <div>
+            <label>Category:</label>
+            <input
+                type="text"
+                name="category"
+                value={formData.category}
+                onChange={handleInputChange}
+                required
+            />
+        </div>
+        <div>
+            <label>Quantity:</label>
+            <input
+                type="number"
+                name="quantity"
+                value={formData.quantity}
+                onChange={handleInputChange}
+                required
+            />
+        </div>
+        <div>
+            <label>Price:</label>
+            <input
+                type="number"
+                name="price"
+                value={formData.price}
+                onChange={handleInputChange}
+                required
+            />
+        </div>
+        <div>
+            <label>Stock Alert:</label>
+            <input
+                type="number"
+                name="stock_alert"
+                value={formData.stock_alert}
+                onChange={handleInputChange}
+                required
+            />
+        </div>
+        <button type="submit">Update Product</button>
+    </form>
+</Modal>
+
         </div>
     );
 };

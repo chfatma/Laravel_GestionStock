@@ -50,6 +50,7 @@ export default App;
 
 
 import React, { useState } from 'react';
+
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './components/Home';
@@ -58,6 +59,7 @@ import ProductEdit from './components/ProductEdit';
 import AddProduct from './components/AddProduct';
 import Sales from './components/Sales'; 
 import Login from './components/Login';
+import StockEntryList from './components/StockEntryList';
 
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false); // Track login state
@@ -73,6 +75,7 @@ const App = () => {
                         <Route path="products" element={<ProductList />} />
                         <Route path="products/edit/:id" element={<ProductEdit />} />
                         <Route path="products/add" element={<AddProduct />} />
+                        <Route path="stock-entries" element={<StockEntryList />} />
                         <Route path="sales" element={<Sales />} />
                         <Route path="*" element={<Navigate to="/" />} />
                     </Route>

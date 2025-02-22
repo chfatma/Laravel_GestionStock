@@ -17,6 +17,7 @@ Route::apiResource('products', ProductController::class);
 Route::apiResource('sales', SaleController::class);
 Route::apiResource('users', UserController::class);
 Route::apiResource('stock-entries', StockEntryController::class);
+
 Route::get('/most-sold-products', [SaleController::class, 'mostSoldProducts']);
 
 Route::post('/login', [UserController::class, 'login']);

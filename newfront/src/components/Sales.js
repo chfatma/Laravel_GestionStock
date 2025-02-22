@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import "../styles/Sales.css";
 import api from '../api'; // Import your axios instance
 
@@ -13,6 +12,7 @@ const Sales = () => {
         total_price: '',
     });
     const [showAddSaleModal, setShowAddSaleModal] = useState(false);
+    const [showEditSaleModal, setShowEditSaleModal] = useState(false);
 
     // Fetch sales and products data from API
     useEffect(() => {
@@ -57,10 +57,11 @@ const Sales = () => {
     const handleEdit = (sale) => {
         setSelectedSale(sale);
         setFormData({
-            product_id: sale.product_id,
+            product_id: sale.product_id, // Set product ID
             quantity_sold: sale.quantity_sold,
             total_price: sale.total_price,
         });
+        setShowEditSaleModal(true); // Show the edit modal
     };
 
     // Handle form input changes
@@ -69,39 +70,48 @@ const Sales = () => {
     };
 
     // Handle form submission for editing
-    const handleSubmit = (e) => {
+    const handleEditSubmit = (e) => {
         e.preventDefault();
-        api.put(`/sales/${selectedSale.id}`, formData)
-            .then(response => {
-                setSales(sales.map(sale => (sale.id === selectedSale.id ? response.data : sale)));
-                setSelectedSale(null);
-                setFormData({
-                    product_id: '',
-                    quantity_sold: '',
-                    total_price: '',
-                });
-            })
-            .catch(error => {
-                console.error("Error updating sale:", error);
+        api.put(`/sales/${selectedSale.id}`, {
+            product_id: formData.product_id,
+            quantity_sold: formData.quantity_sold,
+            total_price: formData.total_price,
+        })
+        .then(response => {
+            setSales(sales.map(sale => (sale.id === selectedSale.id ? response.data : sale)));
+            setShowEditSaleModal(false); // Close the modal
+            setSelectedSale(null);
+            setFormData({
+                product_id: '',
+                quantity_sold: '',
+                total_price: '',
             });
+        })
+        .catch(error => {
+            console.error("Error updating sale:", error);
+        });
     };
 
     // Handle form submission for adding a new sale
     const handleAddSaleSubmit = (e) => {
         e.preventDefault();
-        api.post("/sales", formData)
-            .then(response => {
-                setSales([...sales, response.data]);
-                setShowAddSaleModal(false);
-                setFormData({
-                    product_id: '',
-                    quantity_sold: '',
-                    total_price: '',
-                });
-            })
-            .catch(error => {
-                console.error("Error adding sale:", error);
+        api.post("/sales", {
+            product_id: formData.product_id,
+            quantity_sold: formData.quantity_sold,
+            total_price: formData.total_price,
+        })
+        .then(response => {
+            setSales([...sales, response.data]);
+            setShowAddSaleModal(false);
+            setFormData({
+                product_id: '',
+                quantity_sold: '',
+                total_price: '',
             });
+        })
+        .catch(error => {
+            console.error("Error adding sale:", error);
+        });
     };
 
     return (
@@ -116,7 +126,7 @@ const Sales = () => {
             <div className="sales-list">
                 {sales.map(sale => (
                     <div key={sale.id} className="sale-card">
-                        <h3>{sale.product ? sale.product.name : 'Unknown Product'}</h3> {/* Check for undefined product */}
+                        <h3>{sale.product ? sale.product.name : 'Unknown Product'}</h3> {/* Show product name */}
                         <p><strong>Quantity Sold:</strong> {sale.quantity_sold}</p>
                         <p><strong>Total Price:</strong> ${sale.total_price}</p>
                         <p><strong>Sold At:</strong> {new Date(sale.sold_at).toLocaleDateString()}</p>
@@ -126,26 +136,33 @@ const Sales = () => {
                 ))}
             </div>
 
-            {/* Edit Sale Form */}
-            {selectedSale && (
-                <div className="edit-sale-form">
-                    <h3>Edit Sale</h3>
-                    <form onSubmit={handleSubmit}>
-                        <label>
-                            Product ID:
-                            <input type="text" name="product_id" value={formData.product_id} onChange={handleChange} required />
-                        </label>
-                        <label>
-                            Quantity Sold:
-                            <input type="number" name="quantity_sold" value={formData.quantity_sold} onChange={handleChange} required />
-                        </label>
-                        <label>
-                            Total Price:
-                            <input type="number" name="total_price" value={formData.total_price} onChange={handleChange} required />
-                        </label>
-                        <button type="submit">Update Sale</button>
-                        <button type="button" onClick={() => setSelectedSale(null)}>Cancel</button>
-                    </form>
+            {/* Edit Sale Modal */}
+            {showEditSaleModal && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <h3>Edit Sale</h3>
+                        <form onSubmit={handleEditSubmit}>
+                            <label>
+                                Product:
+                                <select name="product_id" value={formData.product_id} onChange={handleChange} required>
+                                    <option value="">Select a product</option>
+                                    {products.map(product => (
+                                        <option key={product.id} value={product.id}>{product.name}</option>
+                                    ))}
+                                </select>
+                            </label>
+                            <label>
+                                Quantity Sold:
+                                <input type="number" name="quantity_sold" value={formData.quantity_sold} onChange={handleChange} required />
+                            </label>
+                            <label>
+                                Total Price:
+                                <input type="number" name="total_price" value={formData.total_price} onChange={handleChange} required />
+                            </label>
+                            <button type="submit">Update Sale</button>
+                            <button type="button" onClick={() => setShowEditSaleModal(false)}>Cancel</button>
+                        </form>
+                    </div>
                 </div>
             )}
 
